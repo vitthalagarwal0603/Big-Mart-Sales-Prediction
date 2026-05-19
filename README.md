@@ -37,6 +37,18 @@ The structural code architecture implementation is split into modular execution 
 
 ---
 
+## 🧠 Technical Challenges & Problem Solving
+
+During the development of this pipeline, two critical data quality issues were encountered and resolved:
+
+1. **Structural Inconsistencies in Categorical Labels:** The dataset contained duplicate representations for identical classes (e.g., `Low Fat`, `LF`, and `low fat`). Leaving these unaddressed would have fragmented the feature space, leading to poor model performance. 
+   * *Solution:* Implemented a data-cleansing map using Pandas to unify these values into a single, standardized string category before label encoding.
+   
+2. **Missing Value Propagation:** A significant number of records had missing values for `Outlet_Size`. Simply dropping these rows would have biased the dataset.
+   * *Solution:* Instead of a generic global mode substitution, I analyzed the data structure and imputed missing `Outlet_Size` values by calculating the conditional mode relative to each specific `Outlet_Type`. This preserved structural relationships within store profiles.
+  
+---
+
 ## Evaluation & Performance Metrics
 
 The predictive validity of the model layout was evaluated using the **Coefficient of Determination ($R^2$ Score)** to establish fit accuracy against targeted values:
@@ -53,4 +65,4 @@ The predictive validity of the model layout was evaluated using the **Coefficien
 * `seaborn` & `matplotlib` (Statistical visualization suites)
 
 ---
-*Note: This project architecture was built as part of an applied machine learning exercise guided by the hands-on technical curriculum curated by Siddhardhan.*
+*Note: This project architecture was built as an independent applied machine learning exercise utilizing public retail optimization datasets from the Kaggle analytics community.*
